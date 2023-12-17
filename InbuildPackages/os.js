@@ -1,0 +1,12 @@
+const os = require("os")
+// 1KB = 1024 bytes => 1MB = 1024 MB => 1GB = 1024 MB
+console.log("Free Memory",os.freemem() / 1024 / 1024 / 1024)
+console.log("Total Memory",os.totalmem() / 1024 / 1024 / 1024)
+console.log("User Info",os.userInfo())
+console.log("platform",os.platform())
+console.log("Type",os.type())
+console.log("OS release",os.release())
+console.log("Arch",os.arch())
+console.log(`${os.cpus().length} cores`)
+console.log("CPU speed",os.cpus()[0].speed)
+console.log("Network",os.networkInterfaces())
