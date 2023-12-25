@@ -1,6 +1,6 @@
 const express = require("express"); // Inbuilt Package
 const { MongoClient } = require('mongodb');
-const url_mongo = 'mongodb://localhost:27017'; //  if it is not connected, we have to give IP address -> 127.0.0.1:27017
+const url_mongo = 'mongodb+srv://praveen:8nvzo3hFXiodODJy@cluster0.xqtrrxx.mongodb.net/?retryWrites=true&w=majority'; //  if it is not connected, we have to give IP address -> 127.0.0.1:27017 ### changed to atlas link
 const app = express(); // alternate of express are hapijs,sails
 const PORT = 5000;
 const initproduct = [
@@ -139,6 +139,8 @@ const initproduct = [
     category:"watch"
   },
 ];
+// Inbuilt middleware
+app.use(express.json()) // interpretor || converting body to json
 function createConnection(){
   const client = new MongoClient(url_mongo);
   client.connect()
@@ -181,6 +183,15 @@ app.delete("/products/:id", async (req, res) => {
   res.send(product);
   console.log(product);
 });
+
+// to post the products (to insert the data in products @ mongoDB in Datas)
+app.post("/products", async (req,res) =>{
+  const newProducts = req.body
+  console.log(newProducts)
+  const product = await client.db("Datas").collection("products").insertMany(newProducts)
+  res.send(product)
+})
+
 
 app.listen(PORT, () => console.log("Server started on the PORT", PORT));
 

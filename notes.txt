@@ -1,3 +1,9 @@
+CRUD 
+C => Create - POST
+R => Read - GET
+U => Update - PUT
+D => Delete - DEL
+
 //req => what you send to server
 //res => what you receive from server
 
@@ -10,3 +16,24 @@ if(rating){
 }
 
 const result = initproduct.find((pd) => pd.id === id);
+
+---> to post the particular names in products and that should be mandatory fields (to insert the data in products @ mongoDB in Datas)
+app.post("/", async (req, res) => {
+    const { id, name, poster, price, rating, summary, category } = req.body
+    //check if required fields are present in req.body || Validate 
+    if (!name || typeof name !== 'string' ||
+        !poster || typeof poster !== 'string' ||
+        !price || typeof price !== 'string') {
+        return res.status(400).send({ error: "Invalid or missing fields in request" })
+    }
+    console.log(id, name, poster, price, rating, summary, category)
+    const product = { id, name, poster, price, rating, summary, category, createdAt: new Date() }
+    try {
+        const result = await addProducts(product)
+        res.send({ success: true, message: "Product Added Successfully" })
+    } 
+    catch (err) {
+        console.log(err)
+        res.status(500).send({ error: "Internal Server error" })
+    }
+})
