@@ -22,12 +22,12 @@ for(let i=1;i<=nooffiles;i++){
     fs.writeFile(`./backup/quote-${i}.txt`,quote,()=>{console.log("quote is inserted in backup folder 😉")})
 }
 
-// to append the file to another file (it does not override)
+// to append the file to another file (it does not override), but writefile can override the content...be carefull on this...
 const phoneno = "\n04546457820"
 fs.appendFile("./backup/quote-1.html",phoneno,()=>{console.log("updated...")})
 
 // to delete the file
-fs.unlink("./backup/notes.txt",()=>{
+fs.unlink("./backup/notes-1.html",()=>{
     console.log("Deleted Succesfully 😥")
 })
 
@@ -47,10 +47,10 @@ fs.readdir("./backup",(err,data)=>{
 // fs.writeFileSync,fs.readFileSync,fs.appendFileSync,fs.unlinkSync => synchronous (uploading the file or login is must, at that time we can use synchronous code), we cannot use call back here
 // writeFile => CallStack => WebGLShaderPrecisionFormat(whoever finishes writing first) => CallBaack Q => Event Loop => CallStack
 
-// using sync functions
-const[,,nooftimes]=process.argv
+// using sync functions - comes in order check the terminal
+const[ , ,nooftimes] = process.argv
 const quote4 = "Go ahead, make my day."
 for(let i=1;i<=nooftimes;i++){
-    fs.writeFile(`./backup/quote-${i}.txt`,quote4)
-    console.log("quote is inserted in backup folder 😉")
+    fs.writeFileSync(`./backup/html-file/quote-${i}.html`,quote4)
+        console.log(`quote is inserted in backup folder-${i} 😉`)
 }

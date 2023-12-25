@@ -1,0 +1,12 @@
+//req => what you send to server
+//res => what you receive from server
+
+let filteredproducts = initproduct;
+if(category){  
+    filteredproducts = filteredproducts.filter((pd)=>pd.category === category)
+}
+if(rating){  
+    filteredproducts = filteredproducts.filter((pd)=>pd.rating === +rating)
+}
+
+const result = initproduct.find((pd) => pd.id === id);
