@@ -3,7 +3,8 @@
 import express from 'express';
 import {MongoClient} from 'mongodb';
 import { productRouter } from './routes/products.js';
-import * as dotenv from 'dotenv'
+import { userRouter } from './routes/users.js';
+import * as dotenv from 'dotenv';
 dotenv.config()
 const app = express(); // alternate of express are hapijs,sails
 const PORT = process.env.PORT
@@ -26,6 +27,9 @@ app.get("/", (req, res) => {
 });
 
 app.use("/products",productRouter)
+app.use("/users",userRouter)
+
+
 
 
 

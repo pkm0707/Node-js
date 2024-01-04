@@ -1,10 +1,11 @@
 import { getAllProducts, getProductById, deleteProductById, AddProducts,UpdateProducts} from '../helper.js';
 import express from 'express';
+import { auth } from '../middleware/auth.js';
 
 const router = express.Router() // express router
 
 // to get the products page and by category also
-  router.get("/", async (req, res) => {
+  router.get("/",auth, async (req, res) => {
     const {category,rating} = req.query;
     console.log(req.query,category,rating)
     if(req.query.rating){
@@ -16,7 +17,7 @@ const router = express.Router() // express router
   });
   
   // to get the products by id
-  router.get("/:id", async (req, res) => {
+  router.get("/:id",auth, async (req, res) => {
     const { id } = req.params;
     console.log(req.params, id);
     const product = await getProductById(id)
